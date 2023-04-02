@@ -3,6 +3,7 @@ import user from './assets/user.svg';
 
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
+const input = document.querySelector('textarea[name="prompt"]');
 
 let loadInterval;
 
@@ -12,31 +13,34 @@ function loader(element) {
   loadInterval = setInterval(() => {
     element.textContent += '.';
 
-    if (element.textContent === '....') { 
+    if (element.textContent === '....') {
       element.textContent = '';
     }
   }, 300);
 }
 
 function typetext(element, text) {
+  if (!text) {
+    return;
+  }
+
   let index = 0;
 
   let interval = setInterval(() => {
-    if(index < text.length) {
+    if (index < text.length) {
       element.innerHTML += text.charAt(index);
       index++;
     } else {
-      clearInterval(interval); 
-
-      }
-    }, 20);
+      clearInterval(interval);
+    }
+  }, 20);
 }
 
 function generateUniqueId() {
   const timestamp = Date.now();
   const randomNumber = Math.random();
   const hexadecimalString = randomNumber.toString(16);
-    
+
   return `id-${timestamp}-${hexadecimalString}`;
 }
 
@@ -78,12 +82,11 @@ const handleSubmit = async (e) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      prompt: data.get('prompt')
+      prompt: prompt
     })
   })
-  
+
   clearInterval(loadInterval);
-  messageDiv.innerHTML = ''
 
   const result = await response.json();
 
@@ -95,7 +98,7 @@ const handleSubmit = async (e) => {
 
 form.addEventListener('submit', handleSubmit);
 
-form.addEventListener('keyup', (e) => {
+input.addEventListener('keyup', (e) => {
   if (e.keyCode === 13) {
     handleSubmit(e);
   }
