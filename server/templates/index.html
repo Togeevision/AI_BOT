@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TogeeVision AI Exploration</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <header>
+      <h1>TogeeVision NFT Exploration</h1>
+    </header>
+    <main>
+      <div id="header_container">
+        <div id="welcome_message">
+        Greetings and salutations, dear traveler! I am TogeeVision, your wise guide to the fascinating world of NFTs. Choose a message below, or type in your own question. If I am taking too long to answer, click on the STOP button to interrupt me.
+      </div>
+      <div id="topic_buttons">
+        <button class="topic_button" data-topic="What is an NFT?">What is an NFT?</button>
+        <button class="topic_button" data-topic="How to create an NFT?">How to create an NFT?</button>
+        <button class="topic_button" data-topic="What are the benefits of NFTs?">Benefits of NFTs</button>
+        <button class="topic_button" data-topic="What are the unique properties of NFTs?">Why are they so special?</button>
+      </div>
+      <!-- Add this line inside the element -->
+        <button id="interrupt_button"> STOP </button>
+    </div>
+    
+    <div id="app">
+    
+      <section id="chat_container">
+      
+      
+        <div id="response_container"></div>
+      </section>
+    
+      <form id="chat_form">
+        <label for="input-prompt">Your Question:</label>
+        <textarea id="input-prompt" name="prompt" rows="1" cols="1" placeholder="Ask TogeeVision..." required></textarea>
+        <button type="submit"><img src="/static/assets/send.svg"></button>
+      </form>
+      <div id="user_info">
+        <div class="user_input">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="user_input">
+          <label for="birthdate">Birthdate:</label>
+          <input type="date" id="birthdate" name="birthdate" required>
+        </div>
+        <div class="user_input">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required placeholder="Enter your email address">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+    
+    <script type="module" src="/static/js/script.js"></script>
+
+  </body>
+</html>
