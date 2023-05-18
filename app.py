@@ -2,7 +2,7 @@ import textwrap
 import json
 import requests
 import os
-from tiktoken import Tokenizer
+from transformers import GPT2Tokenizer
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from collections import deque
@@ -34,7 +34,7 @@ def readiness():
 
 def openai_tokenizer(content):
     # Initialize the tokenizer
-    tokenizer = Tokenizer()
+    tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 
     # Split the content into chunks of 4000 tokens or less
     max_tokens = 4000
@@ -44,14 +44,14 @@ def openai_tokenizer(content):
 
     for token in tokens:
         current_chunk_tokens.append(token)
-        if sum(t.count for t in current_chunk_tokens) > max_tokens:
+        if len(current_chunk_tokens) > max_tokens:
             current_chunk_tokens.pop()  # Remove the last token that exceeded the limit
-            chunks.append(tokenizer.detokenize(current_chunk_tokens))
+            chunks.append(tokenizer.convert_tokens_to_string(current_chunk_tokens))
             current_chunk_tokens = [token]  # Start a new chunk with the removed token
 
     # Add the last chunk if it's not empty
     if current_chunk_tokens:
-        chunks.append(tokenizer.detokenize(current_chunk_tokens))
+        chunks.append(tokenizer.convert_tokens_to_string(current_chunk_tokens))
 
     # Loop through each chunk and format it using the textwrap module
     for i, chunk in enumerate(chunks):
@@ -75,6 +75,9 @@ def openai_tokenizer(content):
     reassembled_content = ''.join(chunks)
     
     return reassembled_content
+
+# The rest of your code remains the same...
+
 
 max_message_count = 4
 
