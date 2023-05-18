@@ -2,7 +2,7 @@ import textwrap
 import json
 import requests
 import os
-from tiktoken.core import Tokenizer
+from tiktoken import Tokenizer
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from collections import deque
